@@ -1,6 +1,6 @@
 services:
-  posgresql:
-    build: .
+  database:
+    image: talismar/postgres-audit:latest
     environment:
       POSTGRES_PASSWORD: admin123
     ports:

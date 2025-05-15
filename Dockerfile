@@ -24,5 +24,10 @@ COPY --from=builder /usr/share/postgresql/ /usr/share/postgresql/
 COPY postgresql.conf /etc/postgresql/postgresql.conf
 
 COPY initdb /docker-entrypoint-initdb.d/
+RUN sha256sum /docker-entrypoint-initdb.d/create_extensions.sql > /opt/create_extensions.sha256
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
